@@ -1,4 +1,4 @@
-  <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+  <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse mt-4">
     <div class="position-sticky pt-3 sidebar-sticky">
       <ul class="nav flex-column">
         <li class="nav-item">
@@ -11,6 +11,36 @@
           <a class="nav-link @if(Request::is('karyawan')) active @endif" href="{{ route('karyawan.index') }}">
             <span data-feather="bar-chart-2" class="align-text-bottom"></span>
             Master Karyawan
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link @if(Request::is('gaji')) active @endif" href="/gaji">
+            <span data-feather="bar-chart-2" class="align-text-bottom"></span>
+            Master Gaji
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link @if(Request::is('tambahan')) active @endif" href="/tambahan">
+            <span data-feather="bar-chart-2" class="align-text-bottom"></span>
+            Master Tambahan
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link @if(Request::is('pelanggaran')) active @endif" href="/pelanggaran">
+            <span data-feather="bar-chart-2" class="align-text-bottom"></span>
+            Master Pelanggaran
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link @if(Request::is('tunjangan')) active @endif" href="/tunjangan">
+            <span data-feather="bar-chart-2" class="align-text-bottom"></span>
+            Master Tunjangan
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link @if(Request::is('jabatan')) active @endif" href="/jabatan">
+            <span data-feather="bar-chart-2" class="align-text-bottom"></span>
+            Master Jabatan
           </a>
         </li>
       </ul>

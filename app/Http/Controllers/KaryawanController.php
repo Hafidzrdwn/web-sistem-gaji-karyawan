@@ -23,7 +23,7 @@ class KaryawanController extends Controller
      */
     public function create()
     {
-        //
+        return view('karyawan.add');
     }
 
     /**
@@ -45,7 +45,7 @@ class KaryawanController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('karyawan.show');
     }
 
     /**
@@ -56,7 +56,7 @@ class KaryawanController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('karyawan.edit');
     }
 
     /**

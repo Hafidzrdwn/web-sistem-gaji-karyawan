@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\JabatanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,20 +16,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'dashboard');
 Route::resource('karyawan', 'KaryawanController');
-
-Route::get('jabatan', function () {
-    return view('jabatan.index');
-});
-Route::get('jabatan/show', function () {
-    return view('jabatan.show');
-});
-Route::get('jabatan/edit', function () {
-    return view('jabatan.edit');
-});
-Route::get('jabatan/add', function () {
-    return view('jabatan.add');
-});
-
+Route::resource('jabatan', 'JabatanController');
+Route::post('jabatan/action', [JabatanController::class, 'add']);
 
 
 Route::get('gaji', function () {

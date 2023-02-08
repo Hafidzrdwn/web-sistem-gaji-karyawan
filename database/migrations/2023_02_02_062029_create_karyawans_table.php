@@ -20,6 +20,8 @@ return new class extends Migration
             $table->string('no_telp');
             $table->string('no_rek');
             $table->string('alamat');
+            $table->integer('usia');
+            $table->string('status');
             $table->foreignId('jabatan_id')->constrained('jabatan')->cascadeOnDelete();
             $table->foreignId('jenis_kelamin_id')->constrained('jenis_kelamin')->cascadeOnDelete();
             $table->timestamps();

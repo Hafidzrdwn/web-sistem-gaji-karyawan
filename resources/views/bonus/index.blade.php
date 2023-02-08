@@ -1,4 +1,4 @@
-@extends('app', ['title' => 'Master Jabatan'])
+@extends('app', ['title' => 'Master Bonus'])
 
 @section('content')
 <section class="mt-5">
@@ -12,29 +12,27 @@
     </div>
     @endif
     <div class="col-md-6 text-end">
-      <a href="{{ route('jabatan.create') }}" class="btn btn-success mb-3">Tambah jabatan <i class="ms-1 fas fa-plus-circle"></i></a>
+      <a href="{{ route('bonus.create') }}" class="btn btn-success mb-3">Tambah bonus <i class="ms-1 fas fa-plus-circle"></i></a>
     </div>
   </div>
   <table class="table table-responsive table-hover">
     <thead>
       <tr>
         <th>#</th>
-        <th>Jabatan</th>
-        <th>Tingkat</th>
-        <th>Gaji Pokok</th>
+        <th>Jenis</th>
+        <th>Tambahan Gaji</th>
         <th>Action</th>
       </tr>
     </thead>
     <tbody>
-      @forelse ($jabatan as $key => $j)
+      @forelse ($bonus as $b)
       <tr>
-        <td>{{ $jabatan->firstItem() + $key }}</td>
-        <td>{{ $j->jabatan }}</td>
-        <td>{{ $j->tingkat }}</td>
-        <td>@rupiah($j->gaji->gaji_pokok)</td>
+        <td>{{ $loop->iteration }}</td>
+        <td>{{ $b->jenis }}</td>
+        <td>@rupiah($b->bonus)</td>
         <td>
-          <a href="{{ route('jabatan.edit', $j->id) }}" class="btn btn-sm btn-primary"><i class="fas fa-pen"></i></a>
-          <form action="{{ route('jabatan.destroy', $j->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus {{ $j->jabatan }}?')">
+          <a href="{{ route('bonus.edit', $b->id) }}" class="btn btn-sm btn-primary"><i class="fas fa-pen"></i></a>
+          <form action="{{ route('bonus.destroy', $b->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin ingin menghapusnya?')">
             @csrf
             @method('DELETE')
             <button type="submit" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></button>
@@ -43,11 +41,10 @@
       </tr>
       @empty
       <tr>
-        <td colspan="5" class="text-center">Tidak ada data jabatan.</td>
+        <td colspan="4" class="text-center">Tidak ada data bonus.</td>
       </tr>
       @endforelse
     </tbody>
   </table>
-  {{ $jabatan->links() }}
 </section>
 @endsection

@@ -2,6 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Bonus;
+use App\Models\Jabatan;
+use App\Models\JenisKelamin;
+use App\Models\Karyawan;
+use App\Models\Pelanggaran;
+use App\Models\Tunjangan;
 use Illuminate\Http\Request;
 
 class KaryawanController extends Controller
@@ -13,7 +19,8 @@ class KaryawanController extends Controller
      */
     public function index()
     {
-        return view('karyawan.index');
+        $karyawan = Karyawan::with('jenis_kelamin', 'jabatan')->orderBy('id', 'desc')->paginate(5);
+        return view('karyawan.index', compact('karyawan'));
     }
 
     /**
@@ -23,7 +30,9 @@ class KaryawanController extends Controller
      */
     public function create()
     {
-        return view('karyawan.add');
+        $jabatan = Jabatan::all();
+        $jenis_kelamin = JenisKelamin::all();
+        return view('karyawan.create', compact('jabatan', 'jenis_kelamin'));
     }
 
     /**
@@ -34,7 +43,9 @@ class KaryawanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Karyawan::create($request->all());
+
+        return redirect()->route('karyawan.index')->with('success', '<strong>Karyawan baru</strong> berhasil ditambahkan!');
     }
 
     /**
@@ -43,9 +54,9 @@ class KaryawanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Karyawan $karyawan)
     {
-        return view('karyawan.show');
+        return view('karyawan.show', compact('karyawan'));
     }
 
     /**
@@ -54,9 +65,11 @@ class KaryawanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Karyawan $karyawan)
     {
-        return view('karyawan.edit');
+        $jabatan = Jabatan::all();
+        $jenis_kelamin = JenisKelamin::all();
+        return view('karyawan.edit', compact('karyawan', 'jabatan', 'jenis_kelamin'));
     }
 
     /**
@@ -66,9 +79,11 @@ class KaryawanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Karyawan $karyawan)
     {
-        //
+        $karyawan->update($request->all());
+
+        return redirect()->route('karyawan.index')->with('success', "<strong>Karyawan ({$karyawan->nama})</strong> berhasil diedit!");
     }
 
     /**
@@ -77,8 +92,29 @@ class KaryawanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Karyawan $karyawan)
     {
-        //
+        $karyawan->delete();
+
+        return redirect()->route('karyawan.index')->with('success', "<strong>Karyawan ({$karyawan->nama})</strong> berhasil dihapus!");
+    }
+
+    public function pelanggaran(Karyawan $karyawan)
+    {
+        $pelanggaran = Pelanggaran::all();
+        return view('karyawan.pelanggaran', compact('karyawan', 'pelanggaran'));
+    }
+
+    public function bonus(Karyawan $karyawan)
+    {
+        $bonus = Bonus::all();
+        return view('karyawan.bonus', compact('karyawan', 'bonus'));
+    }
+
+    public function tunjangan(Karyawan $karyawan)
+    {
+        $karyawan->load('jabatan');
+        $tunjangan = Tunjangan::all();
+        return view('karyawan.tunjangan', compact('karyawan', 'tunjangan'));
     }
 }

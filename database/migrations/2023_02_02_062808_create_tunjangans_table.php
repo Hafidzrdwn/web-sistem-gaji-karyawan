@@ -16,7 +16,8 @@ return new class extends Migration
         Schema::create('tunjangan', function (Blueprint $table) {
             $table->id();
             $table->string('jenis');
-            $table->unsignedInteger('jumlah');
+            $table->unsignedInteger('jumlah')->nullable();
+            $table->boolean('khusus')->default(false);
             $table->timestamps();
         });
     }

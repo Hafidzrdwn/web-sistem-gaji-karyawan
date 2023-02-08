@@ -15,12 +15,8 @@ return new class extends Migration
     {
         Schema::create('gaji_bersih', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('karyawan_id')->constrained('karyawan')->cascadeOnDelete();
-            $table->foreignId('gaji_id')->constrained('gaji');
-            $table->foreignId('tunjangan_karyawan_id')->constrained('tunjangan_karyawan');
-            $table->foreignId('pelanggaran_karyawan_id')->constrained('pelanggaran_karyawan');
-            $table->foreignId('tambahan_karyawan_id')->constrained('tambahan_karyawan');
-            $table->unsignedInteger('total');
+            $table->foreignId('rincian_gaji_id')->constrained('rincian_gaji')->cascadeOnDelete();
+            $table->integer('total')->default(0);
             $table->timestamps();
         });
     }

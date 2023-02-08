@@ -1,33 +1,53 @@
 @extends('app', ['title' => 'Master Pelanggaran'])
 
 @section('content')
-<table class="table table-borderless">
+<section class="mt-5">
+  <div class="row justify-content-end align-items-center">
+    @if ($msg = Session::get('success'))
+    <div class="col-md-6">
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {!! $msg !!}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    </div>
+    @endif
+    <div class="col-md-6 text-end">
+      <a href="{{ route('pelanggaran.create') }}" class="btn btn-success mb-3">Tambah pelanggaran <i class="ms-1 fas fa-plus-circle"></i></a>
+    </div>
+  </div>
+  <table class="table table-responsive table-hover">
     <thead>
-        <th>No</th>
-        <th>Pelanggaran</th>
+      <tr>
+        <th>#</th>
+        <th>Jenis</th>
+        <th>Potongan Gaji</th>
+        <th>Action</th>
+      </tr>
     </thead>
     <tbody>
-        <tr>
-            <td>1</td>
-            <td>Pelanggaran</td>
-            <td>
-                <a href="pelanggaran/show" class="btn btn-primary btn-sm d-inline">Show</a>
-                <a href="pelanggaran/add" class="btn btn-success btn-sm d-inline">Add</a>
-                <a href="pelanggaran/edit" class="btn btn-warning btn-sm d-inline">Edit</a>
-                <a href="" class="btn btn-danger btn-sm d-inline">Delete</a>
-            </td>
-        </tr>
+      @forelse ($pelanggaran as $p)
+      <tr>
+        <td>{{ $loop->iteration }}</td>
+        <td>{{ $p->jenis }}</td>
+        <td @if ($p->potongan_gaji >= 10000000)
+          class="text-danger"
+          @endif
+          >@rupiah($p->potongan_gaji)</td>
+        <td>
+          <a href="{{ route('pelanggaran.edit', $p->id) }}" class="btn btn-sm btn-primary"><i class="fas fa-pen"></i></a>
+          <form action="{{ route('pelanggaran.destroy', $p->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin ingin menghapusnya?')">
+            @csrf
+            @method('DELETE')
+            <button type="submit" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></button>
+          </form>
+        </td>
+      </tr>
+      @empty
+      <tr>
+        <td colspan="4" class="text-center">Tidak ada data pelanggaran.</td>
+      </tr>
+      @endforelse
     </tbody>
-</table>
-    <div class="position-relative">
-        <div class="position-absolute top-0 end-0">
-            <form action="">
-                <label for="">Jenis Pelanggaran</label>
-                <input type="text" class="form-control" name="" id="">
-                <label for="">Potongan Gaji</label>
-                <input type="text" class="form-control" name="" id="">
-                <button type="submit" class="btn btn-success btn-sm mt-2">Simpan</button>
-            </form>
-        </div>
-    </div>
+  </table>
+</section>
 @endsection

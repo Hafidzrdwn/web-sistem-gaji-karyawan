@@ -13,10 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tambahan_karyawan', function (Blueprint $table) {
+        Schema::create('bonus', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('karyawan_id')->constrained('karyawan')->cascadeOnDelete();
-            $table->foreignId('tambahan_id')->constrained('tambahan')->cascadeOnDelete();
+            $table->string('jenis');
+            $table->unsignedInteger('bonus')->nullable();
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tambahan_karyawan');
+        Schema::dropIfExists('bonus');
     }
 };

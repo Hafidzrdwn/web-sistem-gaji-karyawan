@@ -13,10 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('pelanggaran', function (Blueprint $table) {
+        Schema::create('rincian_gaji', function (Blueprint $table) {
             $table->id();
-            $table->string('jenis');
-            $table->unsignedInteger('potongan_gaji')->nullable();
+            $table->foreignId('karyawan_id')->constrained('karyawan')->cascadeOnDelete();
+            $table->unsignedInteger('total_nominal_potongan')->default(0);
+            $table->unsignedInteger('total_nominal_bonus')->default(0);
+            $table->unsignedInteger('total_nominal_tunjangan')->default(0);
             $table->timestamps();
         });
     }
@@ -28,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pelanggaran');
+        Schema::dropIfExists('rincian_gajis');
     }
 };

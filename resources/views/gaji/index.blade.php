@@ -1,36 +1,36 @@
-@extends('app', ['title' => 'Master Gaji'])
+@extends('app', ['title' => 'Rincian Gaji Karyawan'])
 
 @section('content')
-<table class="table table-borderless">
+<section class="mt-5">
+  <table class="table table-responsive table-hovered">
     <thead>
-        <th>No</th>
-        <th>Karyawan</th>
-        <th>Gaji</th>
-        <td>Action</td>
+      <tr>
+        <th>#</th>
+        <th>Nama Karyawan</th>
+        <th>Jabatan</th>
+        <th>Gaji Pokok</th>
+        <th>Gaji Bersih</th>
+        <th>Action</th>
+      </tr>
     </thead>
     <tbody>
-        <tr>
-            <td>1</td>
-            <td>Karyawan</td>
-            <td>Gaji</td>
-            <td>
-                <a href="gaji/show" class="btn btn-primary btn-sm d-inline">Show</a>
-                <a href="gaji/add" class="btn btn-success btn-sm d-inline">Add</a>
-                <a href="gaji/edit" class="btn btn-warning btn-sm d-inline">Edit</a>
-                <a href="" class="btn btn-danger btn-sm d-inline">Delete</a>
-            </td>
-        </tr>
+      @forelse ($karyawan as $k)
+      <tr>
+        <td>{{ $loop->iteration }}</td>
+        <td>{{ $k->nama }}</td>
+        <td>{{ $k->jabatan->jabatan }}</td>
+        <td>@rupiah($k->gaji_karyawan->gaji->gaji_pokok)</td>
+        <td>@rupiah($k->rincian_gaji->gaji_bersih->total)</td>
+        <td>
+          <a href="{{ route('gaji.show', $k->id) }}" class="btn btn-sm btn-dark"><i class="fas fa-info-circle"></i></a>
+        </td>
+      </tr>
+      @empty
+      <tr>
+        <td colspan="9" class="text-center">Tidak ada data</td>
+      </tr>
+      @endforelse
     </tbody>
-</table>
-<div class="position-relative">
-    <div class="position-absolute top-0 end-0">
-        <form action="">
-            <label for="">Jenis Gaji</label>
-            <input type="text" class="form-control" name="" id="">
-            <label for=""> Gaji</label>
-            <input type="text" class="form-control" name="" id="">
-            <button type="submit" class="btn btn-success btn-sm mt-2">Simpan</button>
-        </form>
-    </div>
-</div>
+  </table>
+</section>
 @endsection

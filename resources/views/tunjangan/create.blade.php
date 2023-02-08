@@ -1,4 +1,4 @@
-@extends('app', ['title' => 'Edit Tunjangan - ' . $tunjangan->jenis])
+@extends('app', ['title' => 'Tambah Tunjangan Baru'])
 
 @section('content')
 <section class="mt-4">
@@ -6,30 +6,23 @@
     <div class="col-md-6">
       <div class="card p-3">
         <div class="card-body">
-          <form action="{{ route('tunjangan.update', $tunjangan->id) }}" method="POST">
+          <form action="{{ route('tunjangan.store') }}" method="POST">
             @csrf
-            @method('PUT')
             <div class="mb-3">
               <label for="jenis" class="form-label">Jenis Tunjangan</label>
-              <input type="text" class="form-control" id="jenis" name="jenis" value="{{ $tunjangan->jenis }}">
+              <input type="text" class="form-control" id="jenis" name="jenis">
             </div>
             <div class="mb-3">
               <label for="jumlah" class="form-label">Jumlah Tunjangan</label>
-              <input type="number" class="form-control" min="0" id="jumlah" name="jumlah" @if ($tunjangan->khusus)
-              placeholder="nominal menyesuaikan." disabled
-              @endif
-              value="{{ $tunjangan->jumlah }}"
-              >
+              <input type="number" class="form-control" min="0" id="jumlah" name="jumlah">
             </div>
-            <div class="form-check form-switch">
-              <input class="form-check-input" type="checkbox" role="switch" id="khusus" name="khusus" @if ($tunjangan->khusus)
-              checked
-              @endif>
+            <div class="form-check form-switch mb-4">
+              <input class="form-check-input" type="checkbox" role="switch" id="khusus" name="khusus">
               <label class="form-check-label" for="khusus">Khusus?</label>
             </div>
-            <div class="d-flex gap-3 mt-4">
+            <div class="d-flex gap-3">
               <a href="{{ route('tunjangan.index') }}" class="btn btn-dark w-50">&laquo; Kembali</a>
-              <button type="submit" class="btn btn-primary w-50">Edit</button>
+              <button type="submit" class="btn btn-success w-50">Tambah</button>
             </div>
           </form>
         </div>

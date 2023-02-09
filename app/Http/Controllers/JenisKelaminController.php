@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Karyawan;
+use App\Models\JenisKelamin;
 use Illuminate\Http\Request;
 
-class GajiController extends Controller
+class JenisKelaminController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,8 @@ class GajiController extends Controller
      */
     public function index()
     {
-        $karyawan = Karyawan::with('jabatan', 'gaji_karyawan.gaji', 'rincian_gaji.gaji_bersih')->orderBy('nama', 'asc')->get();
-        return view('gaji.index', compact('karyawan'));
+        $jenis_kelamin = JenisKelamin::all();
+        return view('jk.index', compact('jenis_kelamin'));
     }
 
     /**
@@ -36,7 +36,9 @@ class GajiController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        JenisKelamin::create($request->all());
+
+        return redirect()->route('jenis_kelamin.index')->with('success', "<strong>Jenis Kelamin Baru</strong> berhasil ditambahkan!");
     }
 
     /**
@@ -45,11 +47,9 @@ class GajiController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Karyawan $karyawan)
+    public function show($id)
     {
-        $karyawan->load('jabatan', 'gaji_karyawan.gaji', 'rincian_gaji.gaji_bersih', 'pelanggaran_karyawan.pelanggaran', 'bonus_karyawan.bonus', 'tunjangan_karyawan.tunjangan');
-        return view('gaji.show', compact('karyawan'));
-        // return response()->json($karyawan->load('jabatan', 'gaji_karyawan.gaji', 'rincian_gaji.gaji_bersih', 'pelanggaran_karyawan.pelanggaran', 'bonus_karyawan.bonus', 'tunjangan_karyawan.tunjangan'));
+        //
     }
 
     /**
@@ -58,9 +58,9 @@ class GajiController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(JenisKelamin $jk)
     {
-        //
+        return view('jk.edit', compact('jk'));
     }
 
     /**
@@ -70,9 +70,11 @@ class GajiController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, JenisKelamin $jk)
     {
-        //
+        $jk->update($request->all());
+
+        return redirect()->route('jenis_kelamin.index')->with('success', "<strong>Data Jenis Kelamin({$jk->jk})</strong> berhasil diedit!");
     }
 
     /**
@@ -81,8 +83,10 @@ class GajiController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(JenisKelamin $jk)
     {
-        //
+        $jk->delete();
+
+        return redirect()->route('jenis_kelamin.index')->with('success', "<strong>Data Jenis Kelamin({$jk->jk})</strong> berhasil dihapus!");
     }
 }

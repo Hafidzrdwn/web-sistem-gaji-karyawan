@@ -56,7 +56,7 @@
                   <td><span class="me-3">:</span>@rupiah($karyawan->jabatan->gaji->gaji_pokok)</td>
                 </tr>
               </table>
-              <a href="" class="btn btn-primary btn-sm mt-2"><i class="fas fa-money-bill-wave me-2"></i>Lihat detail gaji</a>
+              <a href="{{ route('gaji.show', $karyawan->id) }}" class="btn btn-primary btn-sm mt-2"><i class="fas fa-money-bill-wave me-2"></i>Lihat detail gaji</a>
             </div>
           </div>
         </div>

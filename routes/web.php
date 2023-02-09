@@ -30,6 +30,8 @@ Route::prefix('master')->group(function () {
 
     Route::resource('tunjangan', 'TunjanganController');
     Route::post('tunjangan/add', 'TunjanganController@add_tunjangan')->name('tunjangan.add');
+
+    Route::resource('jenis_kelamin', 'JenisKelaminController')->parameters(['jenis_kelamin' => 'jk']);
 });
 
 Route::resource('gaji', 'GajiController')->parameters(['gaji' => 'karyawan']);

@@ -14,6 +14,12 @@
           <span>Data Master</span>
         </h6>
         <li class="nav-item">
+          <a class="nav-link @if(Request::is('master/jenis_kelamin*')) active @endif" href="{{ route("jenis_kelamin.index") }}">
+            <i class="fas fa-venus-mars me-1"></i>
+            Master Jenis Kelamin
+          </a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link @if(Request::is('master/jabatan*')) active @endif" href="{{ route("jabatan.index") }}">
             <i class="fas fa-user-tie me-1"></i>
             Master Jabatan

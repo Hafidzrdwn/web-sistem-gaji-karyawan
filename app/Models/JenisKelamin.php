@@ -9,4 +9,5 @@ class JenisKelamin extends Model
 {
     use HasFactory;
     protected $table = 'jenis_kelamin';
+    protected $guarded = ['id'];
 }

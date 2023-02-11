@@ -2,7 +2,7 @@
 
 @section('content')
 <section class="mt-4">
-  <a href="{{ route('gaji.index') }}" class="btn btn-sm btn-dark mb-3">&laquo; Kembali</a>
+  <a href="{{ route('gaji.index') }}" class="btn btn-sm btn-dark mb-4">&laquo; Kembali</a>
   <div class="row justify-content-center align-items-center mb-4">
     <div class="col-md-6">
       <div class="card">
@@ -66,12 +66,13 @@
           Pelanggaran Karyawan
         </div>
         <div class="card-body">
-          <table class="table table-responsive table-hover text-center">
+          <table class="table table-responsive table-hover text-center align-middle">
             <thead>
               <tr>
                 <th class="col-md-2">No.</th>
                 <th>Jenis</th>
                 <th>Potongan</th>
+                <th>#</th>
               </tr>
             </thead>
             <tbody>
@@ -80,10 +81,17 @@
                 <td>{{ $loop->iteration }}</td>
                 <td>{{ $pk->pelanggaran->jenis }}</td>
                 <td>@rupiah($pk->pelanggaran->potongan_gaji)</td>
+                <td>
+                  <form action="{{ route('delete.pk', $pk->id) }}" method="POST" class="d-inline">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-sm btn-outline-danger"><i class="fas fa-times"></i></button>
+                  </form>
+                </td>
               </tr>
               @empty
               <tr>
-                <td colspan="3" class="text-center">Tidak melakukan pelanggaran sama sekali.</td>
+                <td colspan="4" class="text-center">Tidak melakukan pelanggaran sama sekali.</td>
               </tr>
               @endforelse
             </tbody>
@@ -97,6 +105,7 @@
                   -
                   @endif
                 </td>
+                <td></td>
               </tr>
             </tfoot>
           </table>
@@ -110,12 +119,13 @@
           Bonus Karyawan
         </div>
         <div class="card-body">
-          <table class="table table-responsive table-hover text-center">
+          <table class="table table-responsive table-hover text-center align-middle">
             <thead>
               <tr>
                 <th class="col-md-2">No.</th>
                 <th>Jenis</th>
                 <th>Bonus</th>
+                <th>#</th>
               </tr>
             </thead>
             <tbody>
@@ -124,10 +134,17 @@
                 <td>{{ $loop->iteration }}</td>
                 <td>{{ $bk->bonus->jenis }}</td>
                 <td>@rupiah($bk->bonus->bonus)</td>
+                <td>
+                  <form action="{{ route('delete.bk', $bk->id) }}" method="POST" class="d-inline">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-sm btn-outline-danger"><i class="fas fa-times"></i></button>
+                  </form>
+                </td>
               </tr>
               @empty
               <tr>
-                <td colspan="3" class="text-center">Tidak ada bonus.</td>
+                <td colspan="4" class="text-center">Tidak ada bonus.</td>
               </tr>
               @endforelse
             </tbody>
@@ -141,6 +158,7 @@
                   -
                   @endif
                 </td>
+                <td></td>
               </tr>
             </tfoot>
           </table>
@@ -154,7 +172,7 @@
           Tunjangan Karyawan
         </div>
         <div class="card-body">
-          <table class="table table-responsive table-hover text-center">
+          <table class="table table-responsive table-hover text-center align-middle">
             <thead>
               <tr>
                 <th class="col-md-2">No.</th>
@@ -204,7 +222,7 @@
           Gaji Bersih
         </div>
         <div class="card-body">
-          <table class="table table-responsive table-hover text-center">
+          <table class="table table-responsive table-hover text-center align-middle">
             <tbody>
               <tr>
                 <th>Gaji Pokok</th>

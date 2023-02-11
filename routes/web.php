@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\PelanggaranController;
+use App\Http\Controllers\BonusController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -35,3 +37,5 @@ Route::prefix('master')->group(function () {
 });
 
 Route::resource('gaji', 'GajiController')->parameters(['gaji' => 'karyawan']);
+Route::delete('pelanggaran/delete/{pelanggaranKaryawan}', 'GajiController@delete_pelanggaran')->name('delete.pk');
+Route::delete('bonus/delete/{bonusKaryawan}', 'GajiController@delete_bonus')->name('delete.bk');

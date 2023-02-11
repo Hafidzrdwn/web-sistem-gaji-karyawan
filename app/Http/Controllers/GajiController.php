@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Bonus;
+use App\Models\BonusKaryawan;
 use App\Models\Karyawan;
+use App\Models\Pelanggaran;
+use App\Models\PelanggaranKaryawan;
 use Illuminate\Http\Request;
 
 class GajiController extends Controller
@@ -84,5 +88,17 @@ class GajiController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function delete_pelanggaran(PelanggaranKaryawan $pelanggaranKaryawan)
+    {
+        $pelanggaranKaryawan->delete();
+        return redirect()->back();
+    }
+
+    public function delete_bonus(BonusKaryawan $bonusKaryawan)
+    {
+        $bonusKaryawan->delete();
+        return redirect()->back();
     }
 }
